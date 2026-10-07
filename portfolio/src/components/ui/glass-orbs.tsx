@@ -464,7 +464,7 @@ export function GlassOrbs() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[500px] sm:h-[540px] select-none overflow-visible"
+      className="relative w-full h-[380px] sm:h-[460px] lg:h-[540px] max-w-[360px] sm:max-w-[480px] lg:max-w-none mx-auto select-none overflow-hidden lg:overflow-visible [--scatter-factor:0.25] sm:[--scatter-factor:0.6] lg:[--scatter-factor:1]"
       style={{
         // Default CSS fallback variables
         "--mx": "0",
@@ -472,130 +472,132 @@ export function GlassOrbs() {
         "--sp": "0",
       } as React.CSSProperties}
     >
-      {/* Ambient background glow center — lightweight radial gradient */}
-      <div
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[340px] rounded-full bg-gradient-to-tr from-[#38BDF8]/10 via-[#6366F1]/12 to-[#A855F7]/10 blur-[80px]"
-        style={{
-          opacity: "calc(max(0, 0.75 * (1 - var(--sp, 0) * 1.25)))",
-          transform: "translate(-50%, -50%) scale(calc(1 + var(--sp, 0) * 0.3))",
-        }}
-        aria-hidden
-      />
+      <div className="relative w-full h-full scale-[0.66] sm:scale-[0.88] lg:scale-100 origin-center transition-transform duration-300">
+        {/* Ambient background glow center — lightweight radial gradient */}
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[340px] rounded-full bg-gradient-to-tr from-[#38BDF8]/10 via-[#6366F1]/12 to-[#A855F7]/10 blur-[80px]"
+          style={{
+            opacity: "calc(max(0, 0.75 * (1 - var(--sp, 0) * 1.25)))",
+            transform: "translate(-50%, -50%) scale(calc(1 + var(--sp, 0) * 0.3))",
+          }}
+          aria-hidden
+        />
 
-      {/* Interactive Orbs Cluster with High-Performance GPU Compositing */}
-      {orbs.map((orb) => {
-        const isHovered = activeOrb === orb.id;
+        {/* Interactive Orbs Cluster with High-Performance GPU Compositing */}
+        {orbs.map((orb) => {
+          const isHovered = activeOrb === orb.id;
 
-        return (
-          <div
-            key={orb.id}
-            onMouseEnter={() => setActiveOrb(orb.id)}
-            onMouseLeave={() => setActiveOrb(null)}
-            className="absolute will-change-transform"
-            style={{
-              left: `${orb.x}%`,
-              top: `${orb.y}%`,
-              width: orb.size,
-              height: orb.size,
-              transform: `translate(-50%, -50%) translate3d(
-                calc(var(--mx, 0) * ${orb.depth * 55}px + ${orb.scatterX}px * var(--sp, 0)),
-                calc(var(--my, 0) * ${orb.depth * 55}px + ${orb.scatterY}px * var(--sp, 0)),
-                0
-              ) rotate(calc(${orb.scatterRotate}deg * var(--sp, 0))) scale(calc(1 - var(--sp, 0) * ${1 - orb.scatterScale}))`,
-              opacity: "calc(max(0, 1 - var(--sp, 0) * 1.35))",
-              zIndex: isHovered ? 40 : orb.size > 85 ? 25 : 20,
-              cursor: "pointer",
-            }}
-          >
-            {/* Zero-G Gentle Floating Animation Wrapper */}
-            <div className={`w-full h-full ${orb.floatClass}`}>
-              {/* High-Performance 3D Glass Sphere Body (No expensive runtime backdrop-blur!) */}
-              <div
-                className="relative w-full h-full rounded-full flex flex-col items-center justify-center transition-transform duration-200 ease-out"
-                style={{
-                  background:
-                    "radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.06) 45%, rgba(10, 14, 23, 0.94) 85%)",
-                  border: isHovered
-                    ? `1.5px solid ${orb.accentColor}`
-                    : "1px solid rgba(255, 255, 255, 0.18)",
-                  boxShadow: isHovered
-                    ? `0 12px 28px -4px rgba(0,0,0,0.8), 0 0 22px ${orb.glowColor}`
-                    : `0 6px 18px -4px rgba(0,0,0,0.6), 0 0 10px ${orb.glowColor}`,
-                  transform: isHovered ? "scale(1.15)" : "scale(1)",
-                }}
-              >
-                {/* Curved Top Specular Glass Reflection */}
+          return (
+            <div
+              key={orb.id}
+              onMouseEnter={() => setActiveOrb(orb.id)}
+              onMouseLeave={() => setActiveOrb(null)}
+              className="absolute will-change-transform"
+              style={{
+                left: `${orb.x}%`,
+                top: `${orb.y}%`,
+                width: orb.size,
+                height: orb.size,
+                transform: `translate(-50%, -50%) translate3d(
+                  calc(var(--mx, 0) * ${orb.depth * 55}px + (${orb.scatterX}px * var(--scatter-factor, 1)) * var(--sp, 0)),
+                  calc(var(--my, 0) * ${orb.depth * 55}px + (${orb.scatterY}px * var(--scatter-factor, 1)) * var(--sp, 0)),
+                  0
+                ) rotate(calc(${orb.scatterRotate}deg * var(--sp, 0))) scale(calc(1 - var(--sp, 0) * ${1 - orb.scatterScale}))`,
+                opacity: "calc(max(0, 1 - var(--sp, 0) * 1.35))",
+                zIndex: isHovered ? 40 : orb.size > 85 ? 25 : 20,
+                cursor: "pointer",
+              }}
+            >
+              {/* Zero-G Gentle Floating Animation Wrapper */}
+              <div className={`w-full h-full ${orb.floatClass}`}>
+                {/* High-Performance 3D Glass Sphere Body (No expensive runtime backdrop-blur!) */}
                 <div
-                  className="pointer-events-none absolute rounded-full"
+                  className="relative w-full h-full rounded-full flex flex-col items-center justify-center transition-transform duration-200 ease-out"
                   style={{
-                    top: "8%",
-                    left: "20%",
-                    width: "60%",
-                    height: "30%",
                     background:
-                      "linear-gradient(to bottom, rgba(255, 255, 255, 0.6) 0%, transparent 100%)",
-                    opacity: isHovered ? 0.9 : 0.65,
+                      "radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.06) 45%, rgba(10, 14, 23, 0.94) 85%)",
+                    border: isHovered
+                      ? `1.5px solid ${orb.accentColor}`
+                      : "1px solid rgba(255, 255, 255, 0.18)",
+                    boxShadow: isHovered
+                      ? `0 12px 28px -4px rgba(0,0,0,0.8), 0 0 22px ${orb.glowColor}`
+                      : `0 6px 18px -4px rgba(0,0,0,0.6), 0 0 10px ${orb.glowColor}`,
+                    transform: isHovered ? "scale(1.15)" : "scale(1)",
                   }}
-                  aria-hidden
-                />
-
-                {/* Inside Content: Real Official Brand Icon & Label */}
-                <div className="relative z-10 flex flex-col items-center justify-center text-center px-1">
-                  <Image
-                    src={`/icons/${orb.iconFile}`}
-                    alt={orb.name}
-                    width={orb.iconSize || 28}
-                    height={orb.iconSize || 28}
-                    className="object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]"
-                    loading="lazy"
+                >
+                  {/* Curved Top Specular Glass Reflection */}
+                  <div
+                    className="pointer-events-none absolute rounded-full"
+                    style={{
+                      top: "8%",
+                      left: "20%",
+                      width: "60%",
+                      height: "30%",
+                      background:
+                        "linear-gradient(to bottom, rgba(255, 255, 255, 0.6) 0%, transparent 100%)",
+                      opacity: isHovered ? 0.9 : 0.65,
+                    }}
+                    aria-hidden
                   />
-                  <span
-                    className="mt-1 block font-sans text-[9px] sm:text-[10px] font-semibold text-white leading-none truncate max-w-[70px]"
-                    style={{ letterSpacing: "-0.01em" }}
-                  >
-                    {orb.name}
-                  </span>
-                  {orb.sublabel && (
-                    <span className="block font-mono text-[7px] uppercase tracking-wider text-muted/80 leading-none mt-0.5">
-                      {orb.sublabel}
+
+                  {/* Inside Content: Real Official Brand Icon & Label */}
+                  <div className="relative z-10 flex flex-col items-center justify-center text-center px-1">
+                    <Image
+                      src={`/icons/${orb.iconFile}`}
+                      alt={orb.name}
+                      width={orb.iconSize || 28}
+                      height={orb.iconSize || 28}
+                      className="object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]"
+                      loading="lazy"
+                    />
+                    <span
+                      className="mt-1 block font-sans text-[9px] sm:text-[10px] font-semibold text-white leading-none truncate max-w-[70px]"
+                      style={{ letterSpacing: "-0.01em" }}
+                    >
+                      {orb.name}
                     </span>
+                    {orb.sublabel && (
+                      <span className="block font-mono text-[7px] uppercase tracking-wider text-muted/80 leading-none mt-0.5">
+                        {orb.sublabel}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Floating Tooltip Pill on Hover */}
+                  {isHovered && (
+                    <div
+                      className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/20 bg-[#08090E]/95 px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-sky-300 shadow-xl z-50 flex items-center gap-1.5 animate-fade-in"
+                      style={{
+                        boxShadow: `0 4px 14px ${orb.glowColor}`,
+                      }}
+                    >
+                      <span
+                        className="w-1.5 h-1.5 rounded-full"
+                        style={{ backgroundColor: orb.accentColor }}
+                      />
+                      <span>{orb.category}</span>
+                    </div>
                   )}
                 </div>
-
-                {/* Floating Tooltip Pill on Hover */}
-                {isHovered && (
-                  <div
-                    className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/20 bg-[#08090E]/95 px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-sky-300 shadow-xl z-50 flex items-center gap-1.5 animate-fade-in"
-                    style={{
-                      boxShadow: `0 4px 14px ${orb.glowColor}`,
-                    }}
-                  >
-                    <span
-                      className="w-1.5 h-1.5 rounded-full"
-                      style={{ backgroundColor: orb.accentColor }}
-                    />
-                    <span>{orb.category}</span>
-                  </div>
-                )}
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
 
       {/* Subtle live indicator badge at the bottom of the ecosystem */}
       <div
-        className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full border border-white/10 bg-[#08090E]/90 px-3.5 py-1 z-30"
+        className="absolute bottom-1 sm:bottom-0 left-1/2 -translate-x-1/2 flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/10 bg-[#08090E]/90 px-2.5 sm:px-3.5 py-1 z-30 shadow-lg backdrop-blur-md"
         style={{
           opacity: "calc(max(0, 1 - var(--sp, 0) * 1.8))",
           transform: "translate(-50%, calc(var(--sp, 0) * 20px))",
         }}
       >
-        <span className="relative flex h-2 w-2">
+        <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-400" />
+          <span className="relative inline-flex h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-sky-400" />
         </span>
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/80">
+        <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.16em] sm:tracking-[0.2em] text-white/80 whitespace-nowrap">
           AI ECOSYSTEM // 18 ACTIVE NODES
         </span>
       </div>

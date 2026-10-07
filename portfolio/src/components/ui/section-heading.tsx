@@ -27,8 +27,8 @@ export function SectionHeading({ index, eyebrow, title, description, align = "le
         <span className="font-semibold text-ink/85">{eyebrow}</span>
       </div>
 
-      {/* Bold, condensed, oversized, tightly spaced uppercase heading */}
-      <h2 className="font-display text-4xl font-bold uppercase leading-[0.92] tracking-tight text-ink sm:text-5xl md:text-6xl lg:text-7xl">
+      {/* Bold, condensed, uppercase heading */}
+      <h2 className="font-display text-3xl font-bold uppercase leading-[0.95] sm:leading-[0.92] tracking-tight text-ink sm:text-5xl md:text-6xl lg:text-7xl">
         {title}
       </h2>
 

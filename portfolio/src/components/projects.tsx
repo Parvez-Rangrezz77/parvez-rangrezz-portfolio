@@ -119,7 +119,7 @@ export function Projects() {
         <div className="grid gap-4 lg:grid-cols-12">
           {/* ───────────── JARVIS FLAGSHIP CARD ───────────── */}
           <Reveal className="lg:col-span-12">
-            <SpotlightCard as="article" id="project-jarvis" className="p-6 sm:p-8 lg:p-10">
+            <SpotlightCard as="article" id="project-jarvis" className="p-5 sm:p-8 lg:p-10">
               <div className="grid gap-10 lg:grid-cols-2 lg:gap-12">
                 <div className="flex flex-col">
                   <ProjectIndex category="AI Application • Automation • Python Core" />
