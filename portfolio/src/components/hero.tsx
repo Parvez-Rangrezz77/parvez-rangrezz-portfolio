@@ -44,15 +44,15 @@ export function Hero() {
         {/* Left Column: Bold Typography, Peeking 3D Robot & Action Badges */}
         <div className="lg:col-span-6 xl:col-span-6">
           {/* Top Yellow Tape Badge with Live Radar Pulse */}
-          <div className="mb-6 flex flex-wrap items-center gap-2.5 sm:gap-3">
-            <span className="tape-badge group cursor-default transition-transform duration-200 hover:-rotate-1 hover:scale-[1.03]">
+          <div className="mb-5 sm:mb-6 flex flex-wrap items-center gap-2 sm:gap-3">
+            <span className="tape-badge group cursor-default text-[11px] sm:text-xs transition-transform duration-200 hover:-rotate-1 hover:scale-[1.03]">
               <span className="relative mr-2 flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-obsidian opacity-80" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-obsidian" />
               </span>
               Available for Opportunities
             </span>
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted flex items-center gap-1.5">
+            <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.16em] sm:tracking-[0.2em] text-muted flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-yellow animate-pulse-soft" />
               {"// 2026 Edition · Active"}
             </span>
@@ -60,18 +60,17 @@ export function Hero() {
 
           {/* Headline with Vertical Animated Guideline */}
           <div className="relative pl-6 sm:pl-10">
-            {/* 3D AI Robot Assistant peeking from behind the guideline */}
+            {/* 3D AI Robot Assistant: Floats elegantly on top-right on mobile (zero text overlap), peeks on left rail on desktop */}
             <div
-              className="group/robot absolute -top-5 sm:-top-5 z-20 select-none transition-transform duration-300 hover:scale-[1.03] w-[92px] sm:w-[160px] lg:w-[220px] -translate-x-[22%] sm:-translate-x-[62%]"
+              className="group/robot absolute right-2 -top-10 sm:right-auto sm:left-0 sm:-top-5 z-20 select-none transition-transform duration-300 hover:scale-[1.03] w-[80px] sm:w-[160px] lg:w-[220px] translate-x-0 sm:-translate-x-[62%]"
               style={{
-                left: "0",
                 filter:
                   "drop-shadow(0 15px 35px rgba(0,0,0,0.9)) drop-shadow(0 0 25px rgba(56,189,248,0.35))",
               }}
             >
               {/* Floating Jarvis Status Badge above robot */}
               <div 
-                className="absolute -top-3.5 sm:-top-4 left-1 sm:left-6 flex items-center gap-1 sm:gap-1.5 rounded-full border border-yellow/35 bg-[#08090E]/95 px-2 sm:px-2.5 py-0.5 font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-wider text-yellow shadow-lg shadow-yellow/15 backdrop-blur-md"
+                className="absolute -top-3.5 sm:-top-4 right-0 sm:right-auto sm:left-6 flex items-center gap-1 sm:gap-1.5 rounded-full border border-yellow/35 bg-[#08090E]/95 px-2 sm:px-2.5 py-0.5 font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-wider text-yellow shadow-lg shadow-yellow/15 backdrop-blur-md whitespace-nowrap"
                 style={{ animation: "float 6s ease-in-out infinite" }}
               >
                 <span className="relative flex h-1.5 w-1.5">
@@ -84,7 +83,7 @@ export function Hero() {
               {/* Robot Image */}
               <Image
                 src="/images/robot-peeking.png"
-                alt="JARVIS AI Assistant peeking from behind guideline"
+                alt="JARVIS AI Assistant"
                 width={240}
                 height={240}
                 priority
@@ -112,11 +111,11 @@ export function Hero() {
 
             <h1 className="font-display uppercase font-bold leading-[0.92] sm:leading-[0.88] tracking-[-0.03em] select-none">
               {/* Off-white primary word */}
-              <span className="block text-[clamp(2.5rem,7.8vw,5.8rem)] text-ink transition-transform duration-300 hover:translate-x-1">
+              <span className="block text-[clamp(2.4rem,7.5vw,5.8rem)] text-ink transition-transform duration-300 hover:translate-x-1">
                 PARVEZ
               </span>
               {/* Vivid warm yellow highlight word with subtle glow */}
-              <span className="block text-[clamp(2.5rem,7.8vw,5.8rem)] text-yellow transition-transform duration-300 hover:translate-x-1 hover:drop-shadow-[0_0_35px_rgba(245,213,0,0.45)]">
+              <span className="block text-[clamp(2.4rem,7.5vw,5.8rem)] text-yellow transition-transform duration-300 hover:translate-x-1 hover:drop-shadow-[0_0_35px_rgba(245,213,0,0.45)]">
                 RANGREZZ
               </span>
             </h1>
@@ -139,11 +138,11 @@ export function Hero() {
           </div>
 
           {/* Technical Stack Labels with Staggered Hover Glow */}
-          <ul className="mt-8 flex flex-wrap items-center gap-2 font-mono text-xs text-muted">
+          <ul className="mt-7 sm:mt-8 flex flex-wrap items-center gap-1.5 sm:gap-2 font-mono text-xs text-muted">
             {stack.map((s, i) => (
-              <li key={s} className="flex items-center gap-2">
+              <li key={s} className="flex items-center gap-1.5 sm:gap-2">
                 {i > 0 && <span className="text-olive/70 font-bold">•</span>}
-                <span className="rounded border border-white/[0.07] bg-[#0e131f]/80 px-2.5 py-1 text-ink/90 transition-all duration-300 hover:border-yellow/40 hover:bg-yellow/[0.08] hover:text-yellow hover:-translate-y-0.5 hover:shadow-[0_4px_16px_-4px_rgba(56,189,248,0.3)] cursor-default">
+                <span className="rounded border border-white/[0.07] bg-[#0e131f]/80 px-2 sm:px-2.5 py-1 text-ink/90 transition-all duration-300 hover:border-yellow/40 hover:bg-yellow/[0.08] hover:text-yellow hover:-translate-y-0.5 hover:shadow-[0_4px_16px_-4px_rgba(56,189,248,0.3)] cursor-default text-[11px] sm:text-xs">
                   {s}
                 </span>
               </li>

@@ -464,7 +464,7 @@ export function GlassOrbs() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[380px] sm:h-[460px] lg:h-[540px] max-w-[360px] sm:max-w-[480px] lg:max-w-none mx-auto select-none overflow-hidden lg:overflow-visible [--scatter-factor:0.25] sm:[--scatter-factor:0.6] lg:[--scatter-factor:1]"
+      className="relative w-full h-[340px] sm:h-[460px] lg:h-[540px] max-w-full sm:max-w-[480px] lg:max-w-none mx-auto select-none overflow-hidden lg:overflow-visible [--scatter-factor:0.25] sm:[--scatter-factor:0.6] lg:[--scatter-factor:1]"
       style={{
         // Default CSS fallback variables
         "--mx": "0",
@@ -472,7 +472,7 @@ export function GlassOrbs() {
         "--sp": "0",
       } as React.CSSProperties}
     >
-      <div className="relative w-full h-full scale-[0.66] sm:scale-[0.88] lg:scale-100 origin-center transition-transform duration-300">
+      <div className="relative w-full h-full scale-[0.7] sm:scale-[0.88] lg:scale-100 origin-center transition-transform duration-300">
         {/* Ambient background glow center — lightweight radial gradient */}
         <div
           className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[340px] rounded-full bg-gradient-to-tr from-[#38BDF8]/10 via-[#6366F1]/12 to-[#A855F7]/10 blur-[80px]"

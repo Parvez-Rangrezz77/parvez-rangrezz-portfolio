@@ -102,6 +102,25 @@ export function ScrollRobotCompanion() {
       lastScrollY.current = scrollY;
       scrollVelocity.current = scrollVelocity.current * 0.78 + deltaScroll * 0.22;
 
+      // ───────────────── Strict Mobile & Tablet Exclusion (< 1024px) ─────────────────
+      // On mobile and tablet screens, no left margin exists for the rail.
+      // Must be completely hidden with zero opacity and no display.
+      if (window.innerWidth < 1024) {
+        targetOpacity.current = 0;
+        currentOpacity.current = 0;
+        if (robotRef.current) {
+          robotRef.current.style.display = "none";
+          robotRef.current.style.visibility = "hidden";
+          robotRef.current.style.opacity = "0";
+        }
+        if (railContainerRef.current) {
+          railContainerRef.current.style.display = "none";
+          railContainerRef.current.style.visibility = "hidden";
+          railContainerRef.current.style.opacity = "0";
+        }
+        return;
+      }
+
       // ───────────────── Strict Hero Page Exclusion ─────────────────
       // Companion robot MUST NOT exist on the Hero page at all.
       // It starts strictly once Hero section has scrolled away.
@@ -190,6 +209,13 @@ export function ScrollRobotCompanion() {
 
       updatePhysicsTargets();
 
+      if (window.innerWidth < 1024) {
+        if (robotRef.current) robotRef.current.style.display = "none";
+        if (railContainerRef.current) railContainerRef.current.style.display = "none";
+        animFrameId.current = requestAnimationFrame(renderLoop);
+        return;
+      }
+
       if (isInitialized.current && robotRef.current) {
         const { width: rW, height: rH } = getRobotDimensions();
         const lerpFactor = reducedMotion ? 1 : 0.085;
@@ -210,9 +236,9 @@ export function ScrollRobotCompanion() {
         const y = currentPos.current.y.toFixed(2);
         const rot = currentPos.current.rot.toFixed(2);
         const op = Math.max(0, Math.min(1, currentOpacity.current));
-        const isVisible = op > 0.005;
+        const isVisible = op > 0.005 && window.innerWidth >= 1024;
 
-        // Apply to robot: strictly absent/hidden if on Hero
+        // Apply to robot: strictly absent/hidden if on Hero or mobile
         robotRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rot}deg)`;
         robotRef.current.style.opacity = op.toFixed(3);
         robotRef.current.style.visibility = isVisible ? "visible" : "hidden";
@@ -265,7 +291,7 @@ export function ScrollRobotCompanion() {
       <div
         ref={railContainerRef}
         aria-hidden="true"
-        className="pointer-events-none fixed top-24 bottom-10 left-0 z-30 hidden md:block select-none"
+        className="pointer-events-none fixed top-24 bottom-10 left-0 z-30 hidden lg:block select-none"
         style={{
           width: "2px",
           transform: "translate3d(-9999px, 0, 0)",
@@ -305,7 +331,7 @@ export function ScrollRobotCompanion() {
       {/* ───────────────── 2. Hardware-Accelerated 3D Companion Robot ───────────────── */}
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-40 select-none overflow-hidden hidden sm:block"
+        className="pointer-events-none fixed inset-0 z-40 select-none overflow-hidden hidden lg:block"
       >
         <div
           ref={robotRef}
