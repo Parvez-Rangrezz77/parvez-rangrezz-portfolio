@@ -1,0 +1,20 @@
+<svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ag-prism-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#38BDF8" />
+      <stop offset="100%" stopColor="#0284C7" />
+    </linearGradient>
+    <linearGradient id="ag-prism-2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#67E8F9" />
+      <stop offset="100%" stopColor="#0EA5E9" />
+    </linearGradient>
+    <linearGradient id="ag-prism-3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stopColor="#E0F2FE" />
+      <stop offset="100%" stopColor="#7DD3FC" />
+    </linearGradient>
+  </defs>
+  <polygon points="12,2 2,19 12,15" fill="url(#ag-prism-1)" opacity="0.9" />
+  <polygon points="12,2 22,19 12,15" fill="url(#ag-prism-2)" />
+  <polygon points="2,19 22,19 12,15" fill="url(#ag-prism-3)" opacity="0.75" />
+  <circle cx="12" cy="11" r="1.8" fill="#FFFFFF" opacity="0.9" />
+</svg>

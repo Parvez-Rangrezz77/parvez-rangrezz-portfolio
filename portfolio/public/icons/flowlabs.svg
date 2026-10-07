@@ -1,0 +1,11 @@
+<svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="flow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#38BDF8" />
+      <stop offset="100%" stopColor="#EAB308" />
+    </linearGradient>
+  </defs>
+  <path d="M8 5a4 4 0 0 1 4 4v6a4 4 0 0 0 4 4h3" stroke="url(#flow-grad)" stroke-width="3" stroke-linecap="round" fill="none" />
+  <circle cx="8" cy="5" r="3" fill="#38BDF8" />
+  <circle cx="19" cy="19" r="3" fill="#EAB308" />
+</svg>
